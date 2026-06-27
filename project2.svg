@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <rect width="1200" height="800" fill="#c8e6c9"/>
+  <g transform="translate(60,60)">
+    <rect width="1080" height="680" rx="12" fill="#ffffff" stroke="#2e7d32" stroke-width="8"/>
+    <text x="540" y="380" font-family="Arial, sans-serif" font-size="48" font-weight="700" fill="#2e7d32" text-anchor="middle">Commercial Complex</text>
+  </g>
+</svg>

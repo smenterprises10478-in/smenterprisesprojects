@@ -1,0 +1,15 @@
+{
+  "name": "sm-enterprises-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static site for SM Enterprises",
+  "scripts": {
+    "preview": "npx http-server -p 8000",
+    "start": "npx serve -s . -l 8000",
+    "deploy": "npx gh-pages -d . -b gh-pages"
+  },
+
+  "cleanup-images": "node scripts/cleanup-images.js",
+  "author": "",
+  "license": "MIT"
+}

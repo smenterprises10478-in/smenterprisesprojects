@@ -217,53 +217,35 @@
 </section>
 
 <!-- PROJECTS -->
-<section id="projects" class="dark">
-<div class="container">
-<div class="section-header">
-<h2 class="section-title">Our Portfolio</h2>
-<p class="section-subtitle">Showcase of completed projects across residential, commercial, and industrial sectors</p>
-</div>
+document.addEventListener("DOMContentLoaded", () => {
+    const container = document.querySelector(".carousel-container");
+    const slides = document.querySelectorAll(".carousel-slide");
+    const next = document.querySelector(".next");
+    const prev = document.querySelector(".prev");
+    const dots = document.querySelectorAll(".indicator");
 
-<div class="carousel">
-<div class="carousel-container">
-<div class="carousel-slide active">
-<div class="project-card">
-<img src="https://raw.githubusercontent.com/smenterprises10478-in/smenterprisesprojects/refs/heads/main/project1.jfif" alt="Apartment Wiring">
-<div class="project-overlay">
-<h3>CM RISE SCHOOL</h3>
-<p>Complete electrical setup for 200+ residential units with smart home integration</p>
-</div>
-</div>
-</div>
-<div class="carousel-slide">
-<div class="project-card">
-<img src="assets/images/project2.avif" alt="Commercial Complex">
-<div class="project-overlay">
-<h3>Commercial Office</h3>
-<p>Full electrical installation for 5-story office building with backup systems</p>
-</div>
-</div>
-</div>
-<div class="carousel-slide">
-<div class="project-card">
-<img src="assets/images/project1.jfif" alt="Factory Setup">
-<div class="project-overlay">
-<h3>Industrial Factory</h3>
-<p>Heavy-duty industrial electrical system for manufacturing with 24/7 monitoring</p>
-</div>
-</div>
-</div>
-</div>
-<button class="carousel-btn prev" aria-label="Previous project">&lt;</button>
-<button class="carousel-btn next" aria-label="Next project">&gt;</button>
-<div class="carousel-indicators">
-<span class="indicator active" data-slide="0"></span>
-<span class="indicator" data-slide="1"></span>
-<span class="indicator" data-slide="2"></span>
-</div>
-</div>
-</div>
-</section>
+    let index = 0;
+
+    function showSlide(i) {
+        if (i >= slides.length) index = 0;
+        else if (i < 0) index = slides.length - 1;
+        else index = i;
+
+        container.style.transform = `translateX(-${index * 100}%)`;
+
+        dots.forEach(dot => dot.classList.remove("active"));
+        dots[index].classList.add("active");
+    }
+
+    next.addEventListener("click", () => showSlide(index + 1));
+    prev.addEventListener("click", () => showSlide(index - 1));
+
+    dots.forEach((dot, i) => {
+        dot.addEventListener("click", () => showSlide(i));
+    });
+
+    setInterval(() => showSlide(index + 1), 5000);
+});
 
 <!-- TESTIMONIALS -->
 <section id="testimonials">

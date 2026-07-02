@@ -213,39 +213,65 @@
 </div>
 </div>
 </section>
-</div>
-</section>
 
 <!-- PROJECTS -->
-document.addEventListener("DOMContentLoaded", () => {
-    const container = document.querySelector(".carousel-container");
-    const slides = document.querySelectorAll(".carousel-slide");
-    const next = document.querySelector(".next");
-    const prev = document.querySelector(".prev");
-    const dots = document.querySelectorAll(".indicator");
+<section id="projects">
+<div class="container">
+<div class="section-header">
+<h2 class="section-title">Projects</h2>
+<p class="section-subtitle">Browse our past works and ongoing projects — click any item for details.</p>
+</div>
 
-    let index = 0;
+<!-- Filters -->
+<div class="projects-controls">
+<button class="proj-filter active" data-filter="past">Past Works</button>
+<button class="proj-filter" data-filter="ongoing">Ongoing Projects</button>
+</div>
 
-    function showSlide(i) {
-        if (i >= slides.length) index = 0;
-        else if (i < 0) index = slides.length - 1;
-        else index = i;
+<!-- Projects grid / carousel -->
+<div class="projects-grid">
+<!-- Each project card should include an image, title, short description, status tag -->
+<div class="project-card" data-status="past">
+<img src="assets/images/project1.jfif" alt="Residential Complex Wiring">
+<div class="project-body">
+<h3>Residential Complex Wiring</h3>
+<p>Complete wiring and distribution board installations for a 48-unit residential complex. Completed: 2024.</p>
+<span class="project-tag">Completed</span>
+</div>
+</div>
 
-        container.style.transform = `translateX(-${index * 100}%)`;
+<div class="project-card" data-status="past">
+<img src="assets/images/project2.jpg" alt="Office Fit-out Electrical">
+<div class="project-body">
+<h3>Office Fit-out Electrical</h3>
+<p>Electrical design and installation for a 5-floor office fit-out including lighting controls and data cabling. Completed: 2023.</p>
+<span class="project-tag">Completed</span>
+</div>
+</div>
 
-        dots.forEach(dot => dot.classList.remove("active"));
-        dots[index].classList.add("active");
-    }
+<div class="project-card" data-status="ongoing">
+<img src="assets/images/project3.jpg" alt="Factory Power Distribution">
+<div class="project-body">
+<h3>Factory Power Distribution</h3>
+<p>Ongoing upgrade of power distribution and machine electrification at an industrial site. Expected completion: Q4 2026.</p>
+<span class="project-tag">Ongoing</span>
+</div>
+</div>
 
-    next.addEventListener("click", () => showSlide(index + 1));
-    prev.addEventListener("click", () => showSlide(index - 1));
+<div class="project-card" data-status="ongoing">
+<img src="assets/images/project4.jpg" alt="Solar Rooftop Installation">
+<div class="project-body">
+<h3>Solar Rooftop Installation</h3>
+<p>Installation of a 50kWp rooftop solar system for a commercial building. Panels and inverters installed; commissioning in progress.</p>
+<span class="project-tag">Ongoing</span>
+</div>
+</div>
 
-    dots.forEach((dot, i) => {
-        dot.addEventListener("click", () => showSlide(i));
-    });
+<!-- Add more project cards as needed -->
 
-    setInterval(() => showSlide(index + 1), 5000);
-});
+</div>
+</div>
+</section>
 
 <!-- TESTIMONIALS -->
 <section id="testimonials">
@@ -518,6 +544,59 @@ document.addEventListener("DOMContentLoaded", () => {
 </div>
 
 <script>
+// Projects filtering
+function setupProjects() {
+    const filters = document.querySelectorAll('.proj-filter');
+    const cards = document.querySelectorAll('.project-card');
+
+    filters.forEach(btn => btn.addEventListener('click', () => {
+        filters.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        cards.forEach(card => {
+            if (filter === 'all' || card.dataset.status === filter) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }));
+}
+
+// Simple carousel (if you prefer a carousel later, we can replace this)
+function setupCarousel() {
+    const track = document.querySelector('.carousel-track');
+    if (!track) return;
+    const slides = Array.from(track.children);
+    const next = document.querySelector('.next');
+    const prev = document.querySelector('.prev');
+    const dots = document.querySelectorAll('.indicator');
+    let index = 0;
+
+    function showSlide(i) {
+        if (i >= slides.length) index = 0;
+        else if (i < 0) index = slides.length - 1;
+        else index = i;
+        const amount = index * 100;
+        track.style.transform = `translateX(-${amount}%)`;
+        if (dots.length) {
+            dots.forEach(d => d.classList.remove('active'));
+            dots[index].classList.add('active');
+        }
+    }
+
+    if (next) next.addEventListener('click', () => showSlide(index + 1));
+    if (prev) prev.addEventListener('click', () => showSlide(index - 1));
+    slides.forEach((s, i) => s.style.minWidth = '100%');
+    setInterval(() => showSlide(index + 1), 5000);
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    setupProjects();
+    setupCarousel();
+});
+
 // Modal functionality
 function openQuoteModal() {
     document.getElementById('quoteModal').classList.add('open');
@@ -574,25 +653,28 @@ document.getElementById('quoteForm').addEventListener('submit', function(e) {
 });
 
 // Contact form submission
-document.querySelector('#contact form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    // Get form data
-    const formData = new FormData(this);
-    const data = Object.fromEntries(formData);
-    
-    // Validate
-    if (!data.name || !data.email || !data.phone || !data.message) {
-        alert('Please fill in all required fields');
-        return;
-    }
-    
-    // Show success
-    alert(`Thank you for your inquiry, ${data.name}! We'll be in touch soon.`);
-    
-    // Reset form
-    this.reset();
-});
+const contactForm = document.querySelector('#contact form');
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData);
+        
+        // Validate
+        if (!data.name || !data.email || !data.phone || !data.message) {
+            alert('Please fill in all required fields');
+            return;
+        }
+        
+        // Show success
+        alert(`Thank you for your inquiry, ${data.name}! We'll be in touch soon.`);
+        
+        // Reset form
+        this.reset();
+    });
+}
 
 // Smooth scroll for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -627,7 +709,7 @@ const observer = new IntersectionObserver(function(entries) {
 }, observerOptions);
 
 // Observe service cards, testimonials, and other elements
-document.querySelectorAll('.service, .testimonial, .cert-card, .timeline-step').forEach(el => {
+document.querySelectorAll('.service, .testimonial, .cert-card, .timeline-step, .project-card').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
     el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';

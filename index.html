@@ -5,9 +5,25 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SM Enterprises | Electrical Contractor</title>
-<meta name="domain" content="smenterprisesprojects.in">
-<meta name="url" content="https://smenterprisesprojects.in">
+<title>SM Enterprises | Electrical Contractor in Bhopal</title>
+<meta name="description" content="SM Enterprises is a trusted electrical contractor in Bhopal offering residential, commercial, and industrial wiring, maintenance, solar installation, and lighting design. Get a free quote today.">
+<meta name="keywords" content="electrical contractor Bhopal, electrician Bhopal, house wiring, commercial electrical work, industrial electrical installation, solar installation Bhopal">
+<meta name="author" content="SM Enterprises">
+<link rel="canonical" href="https://smenterprisesprojects.in/">
+
+<!-- Open Graph / social sharing -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="SM Enterprises | Electrical Contractor in Bhopal">
+<meta property="og:description" content="Professional electrical contracting in Bhopal — residential, commercial, industrial, solar, and maintenance services.">
+<meta property="og:url" content="https://smenterprisesprojects.in/">
+<meta property="og:image" content="https://smenterprisesprojects.in/assets/images/logo.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SM Enterprises | Electrical Contractor in Bhopal">
+<meta name="twitter:description" content="Professional electrical contracting in Bhopal — residential, commercial, industrial, solar, and maintenance services.">
+<meta name="twitter:image" content="https://smenterprisesprojects.in/assets/images/logo.png">
+
+<link rel="icon" type="image/png" href="assets/images/logo.png">
 
 <link rel="stylesheet" href="style.css">
 
@@ -22,7 +38,7 @@
 <!-- NAVBAR -->
 <header>
 <div class="header-inner">
-<img src="https://github.com/smenterprises10478-in/smenterprisesprojects/blob/main/logo.png?raw=true" alt="SM Enterprises Logo" class="logo">
+<img src="assets/images/logo.png" alt="SM Enterprises Logo" class="logo">
 <div class="site-title">
 <h1>SM Enterprises</h1>
 <p>Electrical Contractor</p>
@@ -106,7 +122,7 @@
 <p>Projects Completed</p>
 </div>
 <div class="stat">
-<h3>15+</h3>
+<h3>30+</h3>
 <p>Years Experience</p>
 </div>
 <div class="stat">
@@ -440,7 +456,8 @@
 </div>
 <div class="contact-form">
 <h3>Send us a Message</h3>
-<form action="#" method="POST">
+<!-- Sign up free at formspree.io, create a form, and replace YOUR_FORM_ID below with the ID they give you -->
+<form id="contactForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
 <div class="form-row">
 <input type="text" name="name" placeholder="Your Name" required>
 <input type="email" name="email" placeholder="Your Email Address" required>
@@ -458,7 +475,7 @@
 <button class="get-code-btn" onclick="openQuoteModal()">Get Quote</button>
 
 <!-- WHATSAPP BUTTON -->
-<a href="https://wa.me/91XXXXXXXXXX" class="whatsapp">
+<a href="https://wa.me/919294834365?text=Hi%20SM%20Enterprises%2C%20I%20would%20like%20to%20discuss%20my%20electrical%20project" class="whatsapp" target="_blank" rel="noopener">
 <i class="fa-brands fa-whatsapp"></i>
 </a>
 
@@ -492,10 +509,10 @@
 <div class="footer-section">
 <h3>Connect With Us</h3>
 <div class="social-links">
-<a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-<a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-<a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-<a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+<!-- Replace each # below with your real profile URL, then uncomment. Leaving them as # sends visitors nowhere. -->
+<!-- <a href="https://facebook.com/yourpage" class="social-link" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a> -->
+<!-- <a href="https://linkedin.com/company/yourpage" class="social-link" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a> -->
+<!-- <a href="https://instagram.com/yourpage" class="social-link" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a> -->
 </div>
 </div>
 </div>
@@ -512,7 +529,8 @@
 <button class="modal-close" onclick="closeQuoteModal()">&times;</button>
 <h3>Request a Quote</h3>
 <p>Get a personalized quote for your electrical project. Fill out the form below and we'll get back to you within 24 hours.</p>
-<form id="quoteForm">
+<!-- Use the SAME Formspree form ID as the contact form below, or create a second Formspree form and use its ID here -->
+<form id="quoteForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
 <label for="quoteName">Full Name *</label>
 <input type="text" id="quoteName" name="name" required>
 
@@ -623,56 +641,75 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// Form submission
-document.getElementById('quoteForm').addEventListener('submit', function(e) {
+// Shared helper: actually sends the form data to Formspree instead of just faking success
+async function submitToFormspree(form, submitBtn, successMessage) {
+    const originalBtnText = submitBtn.textContent;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    try {
+        const formData = new FormData(form);
+        const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+            alert(successMessage);
+            form.reset();
+            return true;
+        } else {
+            alert('Sorry, something went wrong sending your message. Please call us at +91 9294834365 or email smenterprises10478@gmail.com directly.');
+            return false;
+        }
+    } catch (err) {
+        alert('Sorry, something went wrong sending your message. Please call us at +91 9294834365 or email smenterprises10478@gmail.com directly.');
+        return false;
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+    }
+}
+
+// Quote modal form submission
+document.getElementById('quoteForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-    
-    // Get form data
+
     const formData = new FormData(this);
     const data = Object.fromEntries(formData);
-    
-    // Validate form
     if (!data.name || !data.email || !data.phone || !data.message) {
         alert('Please fill in all required fields');
         return;
     }
-    
-    // Here you would typically send the data to a server
-    // For now, we'll show a success message
-    const successMessage = `Thank you ${data.name}! Your quote request has been submitted. We'll contact you at ${data.phone} within 24 hours.`;
-    alert(successMessage);
-    
-    // Reset form and close modal
-    this.reset();
-    closeQuoteModal();
-    
-    // Scroll to contact section
-    setTimeout(() => {
-        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-    }, 500);
+
+    const submitBtn = this.querySelector('button[type="submit"]');
+    const success = await submitToFormspree(this, submitBtn,
+        `Thank you ${data.name}! Your quote request has been submitted. We'll contact you at ${data.phone} within 24 hours.`);
+
+    if (success) {
+        closeQuoteModal();
+        setTimeout(() => {
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        }, 500);
+    }
 });
 
 // Contact form submission
-const contactForm = document.querySelector('#contact form');
+const contactForm = document.getElementById('contactForm');
 if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
+    contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
-        
-        // Get form data
+
         const formData = new FormData(this);
         const data = Object.fromEntries(formData);
-        
-        // Validate
         if (!data.name || !data.email || !data.phone || !data.message) {
             alert('Please fill in all required fields');
             return;
         }
-        
-        // Show success
-        alert(`Thank you for your inquiry, ${data.name}! We'll be in touch soon.`);
-        
-        // Reset form
-        this.reset();
+
+        const submitBtn = this.querySelector('button[type="submit"]');
+        await submitToFormspree(this, submitBtn, `Thank you for your inquiry, ${data.name}! We'll be in touch soon.`);
     });
 }
 
@@ -718,13 +755,6 @@ document.querySelectorAll('.service, .testimonial, .cert-card, .timeline-step, .
 
 // Update page on load
 document.addEventListener('DOMContentLoaded', function() {
-    // Update WhatsApp button
-    const whatsappBtn = document.querySelector('.whatsapp');
-    if (whatsappBtn) {
-        whatsappBtn.href = 'https://wa.me/919294834365?text=Hi%20SM%20Enterprises%2C%20I%20would%20like%20to%20discuss%20my%20electrical%20project';
-        whatsappBtn.target = '_blank';
-    }
-    
     // Add active state to nav links on scroll
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('nav a');
@@ -748,8 +778,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-
-<script src="scripts/contact.js"></script>
 
 </body>
 </html>
